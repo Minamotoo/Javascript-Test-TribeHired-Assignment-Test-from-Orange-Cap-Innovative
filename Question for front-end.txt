@@ -1,0 +1,30 @@
+1. Explain the "what's similar & difference between cookie / localStorage / sessionStorage".
+(ความแตกต่างหรือเหมือนกันของ cookie / localStorage / sessionStorage)
+=> localStorage, sessionStorage are not so different because they both are way to store data on web browser in object pair by key and value form and the data won't be sent to server, which localStorage stores data on the client's computer or technical on their browser and data won't be lost until they clear browser's cachce or clear browser data, i think the example of this data is the 'username' or 'password' that we chose 'Remember me' when we log in, sessionStorage's data will lost when user close tab or close browser and every single tab has it's own session data even with the same url. cookie is one more way to store data on browser but the data will be sent back to the server with subsequent XHR requests and the expiration duration is up to setting from server-side or client-side. localStorage has limited the size of data at about 5 mb, sessionStorage has 5-10 mb and for cookie the data must be less than 4 kb.
+
+2. Today React has hooks. Do we still need a class component? If your answer is yes then which case that we still need to use class component.
+(ปัจจจุบันที่มีใช้ hooks แล้ว class component ยังจำเป็นอยู่ไหม ถ้ายังจำเป็นอยู่เราจะใช้ตอนไหนยังไง)
+=>i don't think we still need class component because both funtional component and class component just return the same thing we want. moreover, manage state using hooks is way more convenient, and since we works with state most of every single click, changing state by hooks or redux is better.
+
+3. Breifly describe how Virtual DOM works.
+(อธิบายสั้นๆ ว่า virtual dom ทำงานยังไง)
+=>virtual dom is react programming concept that fixes the real dom problem, for dom: every update in the page will effect the whole page and cause page's loading too slow. to fix this, virtual dom will copy the whole dom tree, every change or update will be done in virtual dom first, when a page gets updated in which node(of virtual dom), it will change/cause only that node and then update the page by patching changes to real dom.
+
+4. Consider this React's components tree
+	Apps > ComponentA > ComponentB > ComponentC > ComponentD > ComponentE
+If we have a state at Apps component, and ComponentE wants to access that state value. How do you implements this?
+(จาก component ดังกล่าว หากมี state ที่ Apps component, จะทำยังไงให้ componentE ใช้ state ตัวนั้นได้)
+=>we can pass 'state' from 'Apps Component' to 'ComponentE' normally by props just like this: <ComponentE exampleState={state} />, and access this state at 'ComponentE' by some variable = props.exampleState, or use redux so we can access or modify it from any component.
+
+5. What different between using relative / absolute / fixed to position the element.
+(ความแตกต่างของ position ต่างๆ คือ relative, absolute, fixed)
+=>	relative - it relates to it's own original position, for example if we add "left: 30px;", this will move the element to the right-hand side 30px. which means it adds 30px space at the left-hand side of us.
+	absolute - the position of the element is up to it's own parent element which means if we don't have postition property of the parent element to cover this 'absolute' element, it will appear on the screen at nearest ancestor. sometimes it can be issues if we miss something.
+	fixed - wherever we put the element with postion: fixed, it will just stay there, even we scroll up or down it will always show just like that, because it is positioned to the viewport.
+
+6. Explain the different between using callback / Promise / async await. When to use and when not to.
+(อธิบายความแตกต่างของ callback, Promise, async await จะใช้ตอนไหนและตอนไหนที่ไม่ควรใช้)
+=> in my opinion they all are way to wait some job to be done before doing next job, but promise is better than callback because callbakc's issues called "callback hell".
+	callback is the function that will be called after some function has done it's work, these callback can be stacked, and when we have so many callback functions, which mean they will 'pass and get another function as parameter', it will be hard to debug and ended up messy, that's called "callback hell". for example callback function, .map() that has an anonymous function with a parameter like this: arrays.map(function(array) { return something}). but this .map() is not that complicated.
+	promise doesn't work much different from callback but promise returns 'promise' which are 'resolved' or 'reject'. if the function has done it's work and return data or true (resolved), then .then() will be called. but if not .catch() will be called instead.
+ 	async/await is synctax to tell which function is async function, await can be only inside async scope, async function can do like promise but in the different way. for async/await, which statement has 'await' keyword means the program has to wait this statement or job finished first. we normally use these promise and async/await when we want to fetch data from api, it means we have to wait the fetching part done, but sometimes it take too long but it still keep waiting just like that so i think we should manage our code to not use too many await statements.
